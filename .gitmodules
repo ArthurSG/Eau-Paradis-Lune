@@ -1,0 +1,3 @@
+[submodule "Assets/Scripts/Timers"]
+	path = Assets/Scripts/Timers
+	url = https://github.com/Skitak/Unity-advanced-timers.git
