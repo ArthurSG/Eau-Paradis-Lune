@@ -24,6 +24,9 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 	public float fallMultiplier = 2.5f;
 	public float lowJumpMultiplier = 2f;
 
+
+	public ParticleSystem jumpParticles;
+
     void Start()
     {
         yOffset = (boxCollider.size.y + 0.001f) / 2f;
@@ -54,6 +57,7 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
     {
     	if (playerIsGrounded)
     	{
+
     		print ("jump");
     		rigidBody2D.velocity += new Vector2 (rigidBody2D.velocity.x, jumpVelocity);
     	}
