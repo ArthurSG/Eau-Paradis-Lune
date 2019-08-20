@@ -22,7 +22,7 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 
 	public float jumpVelocity = 100f;
 	public float fallMultiplier = 2.5f;
-	public float lowJumpMultiplier = 1f;
+	public float lowJumpMultiplier = 2f;
 
     void Start()
     {
@@ -34,7 +34,7 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
     void Update()
     {
         ThrowRaycastDown();
-        //BetterJump ();
+        BetterJump ();
         print (playerIsGrounded);
 
 
@@ -54,7 +54,6 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
     {
     	if (playerIsGrounded)
     	{
-    		playerIsGrounded = false;
     		print ("jump");
     		rigidBody2D.velocity += new Vector2 (rigidBody2D.velocity.x, jumpVelocity);
     	}
@@ -63,7 +62,7 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 
     void BetterJump ()
     {
-    	if (rigidBody2D.velocity.y > 0)
+    	if (rigidBody2D.velocity.y < 0)
     	{
     		rigidBody2D.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
     	} else if (rigidBody2D.velocity.y > 0 && !pressedJump)
@@ -113,10 +112,10 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
     	for (int i = 0; i < raycastNumber; ++i)
     	{
     		RaycastHit2D hit = Physics2D.Raycast(new Vector2 (transform.position.x - xOffset + (boxCollider.size.x / (raycastNumber-1)) * i,
-    		 	transform.position.y - yOffset), -Vector2.up, 0.01f);
+    		 	transform.position.y - yOffset), -Vector2.up, 0.02f);
 
     		Debug.DrawRay(new Vector2 (transform.position.x - xOffset + (boxCollider.size.x / (raycastNumber-1)) * i,
-    		 	transform.position.y - yOffset), -Vector2.up * 0.1f, Color.red);
+    		 	transform.position.y - yOffset), -Vector2.up * 0.02f, Color.red);
 
 
   			if (hit.collider != null)
@@ -128,6 +127,7 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
   			}
   			else if (hit.collider == null)
   			{
+  			
   				playerIsGrounded = false;
   			}
        	}
@@ -137,6 +137,8 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
        		OnTouchFloor ();
        	}
     }
+
+
 
 
 }
