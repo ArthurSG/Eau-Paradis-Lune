@@ -49,7 +49,6 @@ public class InputListener : MonoBehaviour
 
     public void OnClickRight()
     {
-    	print ("yo");
     	pressedRight = true;
     	//avatarController.SideMovement(1);
     }

@@ -45,7 +45,6 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
     {
         ThrowRaycastDown();
         BetterJump ();
-        print (playerIsGrounded);
 
 
      
@@ -64,8 +63,6 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
     {
     	if (playerIsGrounded)
     	{
-
-    		print ("jump");
     		rigidBody2D.velocity += new Vector2 (rigidBody2D.velocity.x, jumpVelocity);
     	}
     }
@@ -86,7 +83,6 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 
     public void SideMovement (int avatarDirection)
     {
-    	print (avatarDirection);
     	rigidBody2D.velocity = new Vector2 (avatarDirection * movementSpeed, rigidBody2D.velocity.y);
     	this.gameObject.transform.position += new Vector3 (avatarDirection * 0.1f,0,0);
     }
