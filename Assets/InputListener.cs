@@ -9,6 +9,8 @@ public class InputListener : MonoBehaviour
 	private Avatar2DCharacterCTRL avatarController;
 	private AvatarAbilities avatarAbilities;
 
+	private Vector3 touchPosition;
+
 	private bool pressedLeft;
 	private bool pressedRight;
 	//public bool pressedJump;
@@ -24,6 +26,8 @@ public class InputListener : MonoBehaviour
         SendDirection();
         AttackCheck();
 
+
+
     }
 
     void AttackCheck()
@@ -31,16 +35,18 @@ public class InputListener : MonoBehaviour
     	if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
+            touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
+            touchPosition.z = 0f;
 
             if (touch.phase == TouchPhase.Began)
             {
             	print ("1");
-            	avatarAbilities.SlashInstantiate(Input.mousePosition);
+            	avatarAbilities.SlashInstantiate(touchPosition);
             }
             if (touch.phase == TouchPhase.Moved)
             {
             	print ("2");
-            	avatarAbilities.SlashMove(Input.mousePosition);
+            	avatarAbilities.SlashMove(touchPosition);
             }
             if (touch.phase == TouchPhase.Ended)
             {
