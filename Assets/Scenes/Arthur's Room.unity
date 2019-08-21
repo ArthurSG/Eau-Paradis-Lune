@@ -424,7 +424,7 @@ MonoBehaviour:
   playerIsGrounded: 0
   movementSpeed: 0
   pressedJump: 0
-  jumpVelocity: 20
+  jumpVelocity: 10
   fallMultiplier: 5
   lowJumpMultiplier: 10
   jumpParticles: {fileID: 0}
@@ -490,7 +490,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!1 &485752688
 GameObject:
   m_ObjectHideFlags: 0
