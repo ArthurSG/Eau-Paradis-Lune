@@ -22,7 +22,40 @@ public class InputListener : MonoBehaviour
     void Update()
     {
         SendDirection();
+        AttackCheck();
+
     }
+
+    void AttackCheck()
+    {
+    	if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+
+            if (touch.phase == TouchPhase.Began)
+            {
+            	print ("1");
+            	avatarAbilities.SlashInstantiate(Input.mousePosition);
+            }
+            if (touch.phase == TouchPhase.Moved)
+            {
+            	print ("2");
+            	avatarAbilities.SlashMove(Input.mousePosition);
+            }
+            if (touch.phase == TouchPhase.Ended)
+            {
+            	print ("3");
+            	avatarAbilities.SlashDestroy();
+            }
+        }
+
+    }
+
+
+
+
+
+
 
     void SendDirection ()
     {

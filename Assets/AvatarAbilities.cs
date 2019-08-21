@@ -8,6 +8,9 @@ public class AvatarAbilities : MonoBehaviour
 	private Avatar2DCharacterCTRL avatarController;
 	private bool isAvatarGrounded;
 
+	public GameObject slashGameObjectToInstantiate;
+	private GameObject slashGo;
+
 	public float waterJumpCost = 5;
 	public float waterSlashCost = 7;
 
@@ -22,6 +25,23 @@ public class AvatarAbilities : MonoBehaviour
     {
         
     }
+
+    public void SlashInstantiate(Vector3 InputPosition)
+    {	
+    	slashGo = Instantiate(slashGameObjectToInstantiate, InputPosition, Quaternion.identity);
+
+    }
+
+    public void SlashMove(Vector3 InputPosition)
+    {
+    	slashGo.transform.position = InputPosition;
+    }
+
+    public void SlashDestroy()
+    {
+    	Destroy(slashGo);
+    }
+
 
     public void WaterJump ()
     {
