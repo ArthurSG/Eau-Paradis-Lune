@@ -26,7 +26,7 @@ public class WaterHolder : MonoBehaviour
 
     }
 
-    void OnTriggerEnter2D (Collider2D collidedCollider)
+    void OnTriggerStay2D (Collider2D collidedCollider)
     {
     	if (!isEmpty)
     		{
