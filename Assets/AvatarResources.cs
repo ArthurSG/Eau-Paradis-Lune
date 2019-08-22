@@ -37,6 +37,9 @@ public class AvatarResources : MonoBehaviour
     	if (waterResource > maxWaterResources)
     	{
     		waterResource = maxWaterResources;
+    	} else 
+    	{
+    		//animator.SetBool("TakeWater", true);
     	}
     }
 

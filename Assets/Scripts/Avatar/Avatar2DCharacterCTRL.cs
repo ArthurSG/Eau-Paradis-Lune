@@ -40,6 +40,9 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 
     public ParticleSystem jumpParticles;
 
+    public Animator animator;
+    private float animationSpeedX;
+
 
 
 
@@ -49,6 +52,8 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
         yOffset = (boxCollider.size.y + 0.001f) / 2f;
         xOffset = boxCollider.size.x / 2;
 
+        animator = GetComponentInChildren<Animator>();
+
     }
 
     void Update()
@@ -56,7 +61,9 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
         ThrowRaycastDown();
         BetterJump ();
 
-
+        animationSpeedX = Mathf.Abs(rigidBody2D.velocity.x / 4);
+        animator.SetFloat("SpeedX", animationSpeedX);
+        animator.SetFloat("SpeedY", rigidBody2D.velocity.y);
 
      
     }
@@ -146,12 +153,7 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 
     void OnTouchFloor ()
     {
-
-    	PlayerGroundedPositionSet ();
-  		
-
   		bufferAirControl = 1;
-
     }
 
     void TileFinder (RaycastHit2D hit)
@@ -193,6 +195,7 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
             }
             else {
     			playerIsGrounded = false;
+    			animator.SetBool("Grounded", playerIsGrounded);
 
     			bufferAirControl = airControlMultiplier;
     		}
@@ -218,6 +221,7 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
        		{
        			print ("heyo");
        			playerIsGrounded = true;
+       			animator.SetBool("Grounded", playerIsGrounded);
        			OnTouchFloor ();
        		}
     	}

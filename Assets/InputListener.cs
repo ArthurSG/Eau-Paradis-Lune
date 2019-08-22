@@ -42,6 +42,7 @@ public class InputListener : MonoBehaviour
             {
 
             	avatarAbilities.SlashInstantiate(touchPosition);
+            	avatarController.animator.SetBool("Slash", true);
             }
             if (touch.phase == TouchPhase.Moved)
             {
@@ -52,6 +53,7 @@ public class InputListener : MonoBehaviour
             {
         
             	avatarAbilities.SlashDestroy();
+            	avatarController.animator.SetBool("Slash", false);
             }
         }
 

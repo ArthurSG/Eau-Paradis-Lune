@@ -29,6 +29,7 @@ public class AvatarAbilities : MonoBehaviour
     public void SlashInstantiate(Vector3 InputPosition)
     {	
     	slashGo = Instantiate(slashGameObjectToInstantiate, InputPosition, Quaternion.identity);
+    	
 
     }
 
@@ -40,6 +41,7 @@ public class AvatarAbilities : MonoBehaviour
     public void SlashDestroy()
     {
     	Destroy(slashGo);
+    	
     }
 
 
