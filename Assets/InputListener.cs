@@ -40,17 +40,17 @@ public class InputListener : MonoBehaviour
 
             if (touch.phase == TouchPhase.Began)
             {
-            	print ("1");
+
             	avatarAbilities.SlashInstantiate(touchPosition);
             }
             if (touch.phase == TouchPhase.Moved)
             {
-            	print ("2");
+            
             	avatarAbilities.SlashMove(touchPosition);
             }
             if (touch.phase == TouchPhase.Ended)
             {
-            	print ("3");
+        
             	avatarAbilities.SlashDestroy();
             }
         }
@@ -72,21 +72,22 @@ public class InputListener : MonoBehaviour
     }
     public void OnClickJump()
     {
-    	avatarController.pressedJump = true;
-    	print ("onclik");
+
+
 
     	avatarController.AvatarJump();
     	if (!avatarController.playerIsGrounded)
     	{
 			avatarAbilities.WaterJump();
     	}
+    	avatarController.pressedJump = true;
     }
 
     public void OnReleaseJump ()
     {
     	//if (avatarController.playerIsGrounded)
  
-    	print ("tta");
+
     	//avatarController.AvatarJump();
     	
     	avatarController.pressedJump = false;
@@ -107,13 +108,13 @@ public class InputListener : MonoBehaviour
 
     public void OnReleaseLeft()
     {
-    	print ("aaaa");
+
     	pressedLeft = false;
     }
 
     public void OnReleaseRight()
     {
-    	print ("aaaaeeee");
+
     	pressedRight = false;
     }
 }

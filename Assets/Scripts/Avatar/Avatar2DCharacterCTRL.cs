@@ -28,7 +28,7 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 	public float lowJumpMultiplier = 2f;
 
 	private Vector2 raycastOrigin;
-	private float groundedMaximaleDistance = 0.02f;
+	private double groundedMaximaleDistance = 0.02d;
 
     public GridLayout gridLayout;
 
@@ -61,7 +61,7 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
      
     }
 
-    void LateUpdate()
+    void FixedUpdate()
     {
     	/*if (playerIsGrounded)
         	PlayerGroundedPositionSet();*/
@@ -83,7 +83,7 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
     {
     	rigidBody2D.velocity = Vector2.zero;
     	//this.transform.position = Vector3.Lerp(this.transform.position, endPosition, 1f * Time.deltaTime);
-    	rigidBody2D.velocity = (endPosition - (Vector2)this.transform.position) * 1f;
+    	rigidBody2D.velocity = (endPosition - startTyroliennePosition) * 1f;
     	//this.transform.position = 
 
     }
@@ -94,6 +94,7 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
     {
     	if (playerIsGrounded)
     	{
+    
     		rigidBody2D.velocity += new Vector2 (rigidBody2D.velocity.x, jumpVelocity);
     	}
     }
@@ -134,19 +135,20 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 
     void PlayerGroundedPositionSet ()
     {
-    	rigidBody2D.velocity = new Vector2 (rigidBody2D.velocity.x, 0);
+    	//rigidBody2D.velocity = new Vector2 (rigidBody2D.velocity.x, 0);
         //RigidbodyConstraints2D = FreezeRotationY;
         //rigidBody2D.constraints = RigidbodyConstraints2D.FreezePositionY;
 
         //COLLIDER GROUND WIP
         //this.transform.position = new Vector2 (this.transform.position.x, colliderGround.gameObject.transform.position.y + colliderGround.size.y/2 + yOffset - 0.001f);
-        this.transform.position = new Vector2 (this.transform.position.x, cellPosition3.y + yOffset - 0.001f);
+        //this.transform.position = new Vector2 (this.transform.position.x, cellPosition3.y + yOffset - 0.001f);
     }
 
     void OnTouchFloor ()
     {
+
     	PlayerGroundedPositionSet ();
-  		playerIsGrounded = true;
+  		
 
   		bufferAirControl = 1;
 
@@ -172,19 +174,19 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
             raycastOrigin = new Vector2 (transform.position.x - xOffset + (boxCollider.size.x / (raycastNumber-1)) * i,
     		 	transform.position.y - yOffset);
     		
-    		RaycastHit2D hit = Physics2D.Raycast(raycastOrigin, -Vector2.up, 5f);
+    		RaycastHit2D hit = Physics2D.Raycast(raycastOrigin, -Vector2.up, 15f);
 
            
     		Debug.DrawRay(raycastOrigin, -Vector2.up * 5f, Color.red);
 
-
+  
 
             if (Mathf.Abs(hit.point.y - raycastOrigin.y) < groundedMaximaleDistance)
     		{
     			groundedBuffer = true;
 
                 //COLLIDER GROUND WIP
-
+    		
                 TileFinder(hit);
 
                 //colliderGround = (TilemapCollider2D)hit.collider;
@@ -214,6 +216,8 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 
        		if (groundedBuffer == true && playerIsGrounded == false)
        		{
+       			print ("heyo");
+       			playerIsGrounded = true;
        			OnTouchFloor ();
        		}
     	}

@@ -16,7 +16,7 @@ public class AvatarResources : MonoBehaviour
 
     void Update()
     {
-        print (waterResource);
+
     }
 
     public bool CanUseResources (float resourceNeededValue)
