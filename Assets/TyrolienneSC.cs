@@ -22,16 +22,16 @@ public class TyrolienneSC : MonoBehaviour
 
     void OnTriggerEnter2D (Collider2D collider)
     {
-    	print ("tyro");
+
     	//isOnTyrolienne = true;
-    	avatarCharacterCTRL.TyrolienneOn(true, new Vector2 (tyrolienneEndPoint.transform.position.x, tyrolienneEndPoint.transform.position.y));
+    	avatarCharacterCTRL.TyrolienneOn(true,new Vector2 (tyrolienneEndPoint.transform.position.x, tyrolienneEndPoint.transform.position.y));
     	//avatarCharacterCTRL.TyrolienneMovement(tyrolienneEndPoint.transform.position);
 
     }
 
     void OnTriggerExit2D (Collider2D collider)
     {
-    	print ("end");
+
     	avatarCharacterCTRL.TyrolienneOn(false, tyrolienneEndPoint.transform.position);
 
     }
