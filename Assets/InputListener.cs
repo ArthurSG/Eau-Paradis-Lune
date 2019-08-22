@@ -7,6 +7,9 @@ public class InputListener : MonoBehaviour
 {
 	public GameObject avatarGo;
 	private Avatar2DCharacterCTRL avatarController;
+	private AvatarAbilities avatarAbilities;
+
+	private Vector3 touchPosition;
 
 	private bool pressedLeft;
 	private bool pressedRight;
@@ -14,13 +17,51 @@ public class InputListener : MonoBehaviour
 
     void Start()
     {
-     	avatarController = avatarGo.GetComponent<Avatar2DCharacterCTRL>();   
+     	avatarController = avatarGo.GetComponent<Avatar2DCharacterCTRL>(); 
+     	avatarAbilities = avatarGo.GetComponent<AvatarAbilities>();  
     }
 
     void Update()
     {
         SendDirection();
+        AttackCheck();
+
+
+
     }
+
+    void AttackCheck()
+    {
+    	if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
+            touchPosition.z = 0f;
+
+            if (touch.phase == TouchPhase.Began)
+            {
+            	print ("1");
+            	avatarAbilities.SlashInstantiate(touchPosition);
+            }
+            if (touch.phase == TouchPhase.Moved)
+            {
+            	print ("2");
+            	avatarAbilities.SlashMove(touchPosition);
+            }
+            if (touch.phase == TouchPhase.Ended)
+            {
+            	print ("3");
+            	avatarAbilities.SlashDestroy();
+            }
+        }
+
+    }
+
+
+
+
+
+
 
     void SendDirection ()
     {
@@ -32,7 +73,15 @@ public class InputListener : MonoBehaviour
     public void OnClickJump()
     {
     	avatarController.pressedJump = true;
-    	avatarController.AvatarJump();
+
+    	if (avatarController.playerIsGrounded)
+    	{
+    		avatarController.AvatarJump();
+    	} 
+    	else if (!avatarController.playerIsGrounded)
+    	{
+			avatarAbilities.WaterJump();
+    	}
     }
 
     public void OnReleaseJump ()
@@ -49,7 +98,6 @@ public class InputListener : MonoBehaviour
 
     public void OnClickRight()
     {
-    	print ("yo");
     	pressedRight = true;
     	//avatarController.SideMovement(1);
     }

@@ -17,6 +17,8 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 	private BoxCollider2D colliderGround;
 
 	public float movementSpeed = 300f;
+	public float airControlMultiplier = 0.75f;
+	private float bufferAirControl = 0;
 
 	public bool pressedJump;
 
@@ -24,8 +26,15 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 	public float fallMultiplier = 2.5f;
 	public float lowJumpMultiplier = 2f;
 
+	private Vector2 raycastOrigin;
+	private float groundedMaximaleDistance = 0.02f;
+
 
 	public ParticleSystem jumpParticles;
+
+
+
+
 
     void Start()
     {
@@ -38,7 +47,6 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
     {
         ThrowRaycastDown();
         BetterJump ();
-        print (playerIsGrounded);
 
 
      
@@ -57,8 +65,6 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
     {
     	if (playerIsGrounded)
     	{
-
-    		print ("jump");
     		rigidBody2D.velocity += new Vector2 (rigidBody2D.velocity.x, jumpVelocity);
     	}
     }
@@ -79,8 +85,12 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 
     public void SideMovement (int avatarDirection)
     {
-    	print (avatarDirection);
-    	rigidBody2D.velocity = new Vector2 (avatarDirection * movementSpeed, rigidBody2D.velocity.y);
+    	/*
+    	if (!playerIsGrounded)
+    		bufferAirControl = airControlMultiplier; 
+    	if (playerIsGrounded)
+    		bufferAirControl = 1;*/
+    	rigidBody2D.velocity = new Vector2 (avatarDirection * movementSpeed * bufferAirControl, rigidBody2D.velocity.y);
     	this.gameObject.transform.position += new Vector3 (avatarDirection * 0.1f,0,0);
     }
 
@@ -104,6 +114,8 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
     	PlayerGroundedPositionSet ();
   		playerIsGrounded = true;
 
+  		bufferAirControl = 1;
+
     }
 
 
@@ -115,13 +127,25 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 
     	for (int i = 0; i < raycastNumber; ++i)
     	{
-    		RaycastHit2D hit = Physics2D.Raycast(new Vector2 (transform.position.x - xOffset + (boxCollider.size.x / (raycastNumber-1)) * i,
-    		 	transform.position.y - yOffset), -Vector2.up, 0.02f);
+    		raycastOrigin = new Vector2 (transform.position.x - xOffset + (boxCollider.size.x / (raycastNumber-1)) * i,
+    		 	transform.position.y - yOffset);
+    		
+    		RaycastHit2D hit = Physics2D.Raycast(raycastOrigin, -Vector2.up, 5f);
+    		Debug.DrawRay(raycastOrigin, -Vector2.up * 5f, Color.red);
 
-    		Debug.DrawRay(new Vector2 (transform.position.x - xOffset + (boxCollider.size.x / (raycastNumber-1)) * i,
-    		 	transform.position.y - yOffset), -Vector2.up * 0.02f, Color.red);
+    		if (Mathf.Abs(hit.point.y - raycastOrigin.y) < groundedMaximaleDistance)
+    		{
+    			groundedBuffer = true;
+  				colliderGround = (BoxCollider2D)hit.collider;
+    		} else {
+    			playerIsGrounded = false;
+
+    			bufferAirControl = airControlMultiplier;
+    		}
 
 
+
+    		/*
   			if (hit.collider != null)
   			{
   				groundedBuffer = true;
@@ -134,15 +158,12 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
   			
   				playerIsGrounded = false;
   			}
-       	}
+       	}*/
 
-       	if (groundedBuffer == true && playerIsGrounded == false)
-       	{
-       		OnTouchFloor ();
-       	}
-    }
-
-
-
-
+       		if (groundedBuffer == true && playerIsGrounded == false)
+       		{
+       			OnTouchFloor ();
+       		}
+    	}
+	}
 }
