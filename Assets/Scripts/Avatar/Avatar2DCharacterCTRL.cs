@@ -32,6 +32,10 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 
     public GridLayout gridLayout;
 
+    private bool isOnTyrolienne = false;
+    public TyrolienneSC Tyroliennesc;
+    public Vector2 endTyroliennePosition;
+    private Vector2 startTyroliennePosition;
 
 
     public ParticleSystem jumpParticles;
@@ -53,6 +57,7 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
         BetterJump ();
 
 
+
      
     }
 
@@ -60,6 +65,26 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
     {
     	/*if (playerIsGrounded)
         	PlayerGroundedPositionSet();*/
+        if (isOnTyrolienne)
+        {
+        	TyrolienneMovement(endTyroliennePosition);
+        }
+
+
+    }
+    public void TyrolienneOn (bool boolean, Vector2 endPosition)
+    {
+    	isOnTyrolienne = boolean;
+    	endTyroliennePosition = endPosition;
+    	startTyroliennePosition = this.transform.position;
+    }
+
+    public void TyrolienneMovement (Vector2 endPosition)
+    {
+    	rigidBody2D.velocity = Vector2.zero;
+    	//this.transform.position = Vector3.Lerp(this.transform.position, endPosition, 1f * Time.deltaTime);
+    	rigidBody2D.velocity = (endPosition - (Vector2)this.transform.position) * 1f;
+    	//this.transform.position = 
 
     }
 
@@ -94,8 +119,11 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
     		bufferAirControl = airControlMultiplier; 
     	if (playerIsGrounded)
     		bufferAirControl = 1;*/
-    	rigidBody2D.velocity = new Vector2 (avatarDirection * movementSpeed * bufferAirControl, rigidBody2D.velocity.y);
-    	this.gameObject.transform.position += new Vector3 (avatarDirection * 0.1f,0,0);
+    	if (!isOnTyrolienne)
+    	{
+    		rigidBody2D.velocity = new Vector2 (avatarDirection * movementSpeed * bufferAirControl, rigidBody2D.velocity.y);
+    		this.gameObject.transform.position += new Vector3 (avatarDirection * 0.1f,0,0);
+    	}
     }
 
 

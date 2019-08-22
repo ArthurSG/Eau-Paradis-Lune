@@ -73,12 +73,10 @@ public class InputListener : MonoBehaviour
     public void OnClickJump()
     {
     	avatarController.pressedJump = true;
+    	print ("onclik");
 
-    	if (avatarController.playerIsGrounded)
-    	{
-    		avatarController.AvatarJump();
-    	} 
-    	else if (!avatarController.playerIsGrounded)
+    	avatarController.AvatarJump();
+    	if (!avatarController.playerIsGrounded)
     	{
 			avatarAbilities.WaterJump();
     	}
@@ -86,6 +84,11 @@ public class InputListener : MonoBehaviour
 
     public void OnReleaseJump ()
     {
+    	//if (avatarController.playerIsGrounded)
+ 
+    	print ("tta");
+    	//avatarController.AvatarJump();
+    	
     	avatarController.pressedJump = false;
     }
 
@@ -104,11 +107,13 @@ public class InputListener : MonoBehaviour
 
     public void OnReleaseLeft()
     {
+    	print ("aaaa");
     	pressedLeft = false;
     }
 
     public void OnReleaseRight()
     {
+    	print ("aaaaeeee");
     	pressedRight = false;
     }
 }
