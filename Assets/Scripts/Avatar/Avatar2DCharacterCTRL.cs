@@ -17,6 +17,8 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 	private BoxCollider2D colliderGround;
 
 	public float movementSpeed = 300f;
+	public float airControlMultiplier = 0.75f;
+	private float bufferAirControl = 0;
 
 	public bool pressedJump;
 
@@ -83,7 +85,12 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 
     public void SideMovement (int avatarDirection)
     {
-    	rigidBody2D.velocity = new Vector2 (avatarDirection * movementSpeed, rigidBody2D.velocity.y);
+    	/*
+    	if (!playerIsGrounded)
+    		bufferAirControl = airControlMultiplier; 
+    	if (playerIsGrounded)
+    		bufferAirControl = 1;*/
+    	rigidBody2D.velocity = new Vector2 (avatarDirection * movementSpeed * bufferAirControl, rigidBody2D.velocity.y);
     	this.gameObject.transform.position += new Vector3 (avatarDirection * 0.1f,0,0);
     }
 
@@ -106,6 +113,8 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
     {
     	PlayerGroundedPositionSet ();
   		playerIsGrounded = true;
+
+  		bufferAirControl = 1;
 
     }
 
@@ -130,6 +139,8 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
   				colliderGround = (BoxCollider2D)hit.collider;
     		} else {
     			playerIsGrounded = false;
+
+    			bufferAirControl = airControlMultiplier;
     		}
 
 
