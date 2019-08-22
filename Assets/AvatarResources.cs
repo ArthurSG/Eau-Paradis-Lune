@@ -40,5 +40,10 @@ public class AvatarResources : MonoBehaviour
     	}
     }
 
+    public void ResourceValueReset ()
+    {
+    	waterResource = 0;
+    }
+
     
 }
