@@ -16,7 +16,7 @@ public class AvatarResources : MonoBehaviour
 
     void Update()
     {
-        print (waterResource);
+
     }
 
     public bool CanUseResources (float resourceNeededValue)
@@ -37,6 +37,9 @@ public class AvatarResources : MonoBehaviour
     	if (waterResource > maxWaterResources)
     	{
     		waterResource = maxWaterResources;
+    	} else 
+    	{
+    		//animator.SetBool("TakeWater", true);
     	}
     }
 

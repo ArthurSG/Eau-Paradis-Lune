@@ -112,6 +112,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 2
     m_ConditionEvent: Grounded
     m_EventTreshold: 0
+  - m_ConditionMode: 3
+    m_ConditionEvent: SpeedY
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 2992832359271702740}
   m_Solo: 0
@@ -155,7 +158,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: Grounded
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -902540475667302743}
   m_Solo: 0
@@ -217,7 +223,7 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 2
+  - m_ConditionMode: 1
     m_ConditionEvent: Damaged
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
@@ -254,7 +260,7 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.25
   m_TransitionOffset: 0
   m_ExitTime: 0.75
-  m_HasExitTime: 1
+  m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
@@ -295,28 +301,28 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -9064542283553405365}
-    m_Position: {x: 420, y: 90, z: 0}
+    m_Position: {x: 420, y: -10, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -528125954881035647}
-    m_Position: {x: 420, y: 160, z: 0}
+    m_Position: {x: 420, y: 170, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7363138369392627818}
-    m_Position: {x: 420, y: 230, z: 0}
+    m_Position: {x: 430, y: 430, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4509378115338003754}
     m_Position: {x: 680, y: 80, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2992832359271702740}
-    m_Position: {x: 680, y: 220, z: 0}
+    m_Position: {x: 680, y: 230, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -902540475667302743}
     m_Position: {x: 680, y: 150, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4306198920567592010}
-    m_Position: {x: 100, y: 90, z: 0}
+    m_Position: {x: -60, y: -40, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1292113450159358774}
-    m_Position: {x: 100, y: 160, z: 0}
+    m_Position: {x: -110, y: 210, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1103782939662533921}
     m_Position: {x: 680, y: -10, z: 0}
@@ -332,7 +338,7 @@ AnimatorStateMachine:
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 950, y: 90, z: 0}
-  m_EntryPosition: {x: 440, y: -10, z: 0}
+  m_EntryPosition: {x: 440, y: -90, z: 0}
   m_ExitPosition: {x: 300, y: -190, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: -9064542283553405365}
@@ -422,7 +428,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: Take Water
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1292113450159358774}
   m_Solo: 0
@@ -466,7 +475,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: Tyrolienne
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 5266527063727642579}
   m_Solo: 0
@@ -518,7 +530,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 4
     m_ConditionEvent: SpeedX
-    m_EventTreshold: 0.01
+    m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -9064542283553405365}
   m_Solo: 0
@@ -528,8 +540,8 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.25
   m_TransitionOffset: 0
   m_ExitTime: 0.75
-  m_HasExitTime: 1
-  m_HasFixedDuration: 1
+  m_HasExitTime: 0
+  m_HasFixedDuration: 0
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
@@ -570,7 +582,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: Take Water
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1292113450159358774}
   m_Solo: 0
@@ -631,6 +646,12 @@ AnimatorController:
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
   - m_Name: Slash
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: Tyrolienne
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -719,7 +740,7 @@ AnimatorStateTransition:
   serializedVersion: 3
   m_TransitionDuration: 0.21271667
   m_TransitionOffset: 0
-  m_ExitTime: 0.48948005
+  m_ExitTime: 0.2
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -732,7 +753,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 2
+    m_ConditionEvent: Tyrolienne
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 2992832359271702740}
   m_Solo: 0
