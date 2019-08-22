@@ -15,6 +15,7 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 
 	public bool playerIsGrounded;
 	private BoxCollider2D colliderGround;
+    private Vector3 cellPosition3;
 
 	public float movementSpeed = 300f;
 	public float airControlMultiplier = 0.75f;
@@ -29,8 +30,11 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 	private Vector2 raycastOrigin;
 	private float groundedMaximaleDistance = 0.02f;
 
+    public GridLayout gridLayout;
 
-	public ParticleSystem jumpParticles;
+
+
+    public ParticleSystem jumpParticles;
 
 
 
@@ -103,10 +107,12 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
     void PlayerGroundedPositionSet ()
     {
     	rigidBody2D.velocity = new Vector2 (rigidBody2D.velocity.x, 0);
-    	//RigidbodyConstraints2D = FreezeRotationY;
-    	//rigidBody2D.constraints = RigidbodyConstraints2D.FreezePositionY;
+        //RigidbodyConstraints2D = FreezeRotationY;
+        //rigidBody2D.constraints = RigidbodyConstraints2D.FreezePositionY;
 
-    	this.transform.position = new Vector2 (this.transform.position.x, colliderGround.gameObject.transform.position.y + colliderGround.size.y/2 + yOffset - 0.001f);
+        //COLLIDER GROUND WIP
+        //this.transform.position = new Vector2 (this.transform.position.x, colliderGround.gameObject.transform.position.y + colliderGround.size.y/2 + yOffset - 0.001f);
+        this.transform.position = new Vector2 (this.transform.position.x, cellPosition3.y + yOffset - 0.001f);
     }
 
     void OnTouchFloor ()
@@ -118,26 +124,44 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 
     }
 
+    void TileFinder (RaycastHit2D hit)
+    {
+        //gridLayout = transform.parent.GetComponentInParent<GridLayout>();
+        Vector3Int cellPosition = gridLayout.WorldToCell(new Vector3 (hit.point.x, hit.point.y, 0));
+        cellPosition3 = gridLayout.CellToWorld(cellPosition);
+    }
+
 
 
 
     void ThrowRaycastDown()
     {
-    	bool groundedBuffer = false; 
+        bool groundedBuffer = false; 
 
     	for (int i = 0; i < raycastNumber; ++i)
     	{
-    		raycastOrigin = new Vector2 (transform.position.x - xOffset + (boxCollider.size.x / (raycastNumber-1)) * i,
+            
+            raycastOrigin = new Vector2 (transform.position.x - xOffset + (boxCollider.size.x / (raycastNumber-1)) * i,
     		 	transform.position.y - yOffset);
     		
     		RaycastHit2D hit = Physics2D.Raycast(raycastOrigin, -Vector2.up, 5f);
+
+           
     		Debug.DrawRay(raycastOrigin, -Vector2.up * 5f, Color.red);
 
-    		if (Mathf.Abs(hit.point.y - raycastOrigin.y) < groundedMaximaleDistance)
+
+
+            if (Mathf.Abs(hit.point.y - raycastOrigin.y) < groundedMaximaleDistance)
     		{
     			groundedBuffer = true;
-  				colliderGround = (BoxCollider2D)hit.collider;
-    		} else {
+
+                //COLLIDER GROUND WIP
+
+                TileFinder(hit);
+
+                //colliderGround = (TilemapCollider2D)hit.collider;
+            }
+            else {
     			playerIsGrounded = false;
 
     			bufferAirControl = airControlMultiplier;
