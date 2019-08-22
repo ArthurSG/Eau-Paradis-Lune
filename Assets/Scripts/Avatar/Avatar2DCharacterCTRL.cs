@@ -32,6 +32,9 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 
     public GridLayout gridLayout;
 
+    private bool isOnTyrolienne = false;
+    public TyrolienneSC Tyroliennesc;
+    public Vector2 endTyroliennePosition;
 
 
     public ParticleSystem jumpParticles;
@@ -52,6 +55,13 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
         ThrowRaycastDown();
         BetterJump ();
 
+        print ("hooo");
+        if (isOnTyrolienne)
+        {
+        	print ("he");
+        	TyrolienneMovement(endTyroliennePosition);
+        	print ("hey");
+        }
 
      
     }
@@ -60,6 +70,22 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
     {
     	/*if (playerIsGrounded)
         	PlayerGroundedPositionSet();*/
+
+    }
+    public void TyrolienneOn (bool boolean, Vector2 endPosition)
+    {
+    	print (boolean);
+    	isOnTyrolienne = boolean;
+    	endTyroliennePosition = endPosition;
+    	print (endTyroliennePosition);
+
+    }
+
+    public void TyrolienneMovement (Vector2 endPosition)
+    {
+    	
+    	print ("ooooo");	
+    	this.transform.position = Vector3.Lerp(this.transform.position, endPosition, 1f);
 
     }
 
