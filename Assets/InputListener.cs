@@ -87,7 +87,7 @@ public class InputListener : MonoBehaviour
     	//if (avatarController.playerIsGrounded)
  
     	print ("tta");
-    	avatarController.AvatarJump();
+    	//avatarController.AvatarJump();
     	
     	avatarController.pressedJump = false;
     }
