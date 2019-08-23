@@ -104,7 +104,10 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
     public void Jump()
     {
     	if (playerIsGrounded)
+    	{
     		rigidBody2D.velocity += new Vector2 (rigidBody2D.velocity.x, jumpVelocity);
+    		jumpParticles.Play();
+    	}
 		else
 			abilities.WaterJump();
 		isWallSliding = false;
@@ -161,6 +164,7 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
     void OnTouchFloor ()
     {
   		bufferAirControl = 1;
+  		jumpParticles.Play();
     }
 
     void TileFinder (RaycastHit2D hit)
@@ -174,6 +178,7 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
     	if (sideRaycast1 && !sideRaycast2 && !sideRaycast3)
     	{
     		rigidBody2D.velocity = new Vector2 (0, autoJumpVelocity);
+    		jumpParticles.Play();
     		sideRaycast1 = false;
     		sideRaycast3 = false;
     		sideRaycast2 = false;
