@@ -45,20 +45,34 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 	private float animationSpeedX;
 
 	private bool isFacingRight = true;
+	private int direction = -1;
+
+	public float wallSlideSpeed = 6f;
+	private bool isWallSliding;
+
+	public float autoJumpVelocity = 10f;
+
+	public bool sideRaycast0 = false;
+	public bool sideRaycast1 = false;
+	public bool sideRaycast2 = false;
+	public bool sideRaycast3 = false;
 
 
     void Start()
     {
-        yOffset = (capsuleCollider.size.y + 0.001f) / 2f;
-        xOffset = capsuleCollider.size.x / 2;
+        yOffset = (capsuleCollider.size.y + 0.02f) / 2f;
+        xOffset = (capsuleCollider.size.x + 0.02f) / 2f;
 
 		FetchComponents();
     }
 
     void Update()
     {
+    	
+
         ThrowRaycastDown();
         BetterJump ();
+        ThrowRaycastSide();
         animator.SetFloat("SpeedX", Mathf.Abs(rigidBody2D.velocity.x / maxMovementSpeed));
         animator.SetFloat("SpeedY", rigidBody2D.velocity.y);
     }
@@ -91,8 +105,9 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
     {
     	if (playerIsGrounded)
     		rigidBody2D.velocity += new Vector2 (rigidBody2D.velocity.x, jumpVelocity);
-			else
-				abilities.WaterJump();
+		else
+			abilities.WaterJump();
+		isWallSliding = false;
     }
 
 
@@ -111,11 +126,15 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 
     public void SideMovement (float avatarDirection)
     {
-    	if (!isOnTyrolienne)
+    	if (!isOnTyrolienne && !isWallSliding)
     	{
+
 			float desiredSpeed = avatarDirection * maxMovementSpeed * bufferAirControl;
     		rigidBody2D.velocity = new Vector2 (desiredSpeed, rigidBody2D.velocity.y);
 
+    		GetRoundedDirection(avatarDirection);
+
+    		if (avatarDirection != 0) {AutoSideJump();} 
     		
 			if ((isFacingRight && avatarDirection < 0) || (!isFacingRight && avatarDirection > 0)) {Flip();}
     	}
@@ -128,6 +147,13 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 			transform.localScale = avatarScale;
 			isFacingRight = !isFacingRight;
 		}
+
+	void GetRoundedDirection (float avatarDirection)
+	{
+		if (avatarDirection > 0) {direction = 1;}
+		if (avatarDirection < 0) {direction = -1;}
+
+	}
 
 
 
@@ -143,6 +169,20 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
         cellPosition3 = gridLayout.CellToWorld(cellPosition);
     }
 
+    void AutoSideJump()
+    {
+    	if (sideRaycast1 && !sideRaycast2 && !sideRaycast3)
+    	{
+    		rigidBody2D.velocity = new Vector2 (0, autoJumpVelocity);
+    		sideRaycast1 = false;
+    		sideRaycast3 = false;
+    		sideRaycast2 = false;
+
+	
+
+    	}
+    }
+
 
 
 
@@ -153,33 +193,106 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
     	for (int i = 0; i < raycastNumber; ++i)
     	{
             
-            raycastOrigin = new Vector2 (transform.position.x - xOffset + (capsuleCollider.size.x / (raycastNumber-1)) * i,
+            raycastOrigin = new Vector2 (transform.position.x - xOffset + 0.01f + (capsuleCollider.size.x / (raycastNumber-1)) * i,
     		 	transform.position.y - yOffset);
     		
     		RaycastHit2D hit = Physics2D.Raycast(raycastOrigin, -Vector2.up, 15f);
 
-           
+           Debug.DrawRay(raycastOrigin,-Vector2.up, Color.green);
 
             if (Mathf.Abs(hit.point.y - raycastOrigin.y) < groundedMaximaleDistance)
     		{
+    			
     			groundedBuffer = true; 		
                 TileFinder(hit);
 
             }
             else {
+            
     			playerIsGrounded = false;
     			animator.SetBool("Grounded", playerIsGrounded);
 
     			bufferAirControl = airControlMultiplier;
+
     		}
 
        		if (groundedBuffer  && playerIsGrounded == false)
        		{
+       		
        			playerIsGrounded = true;
        			animator.SetBool("Grounded", playerIsGrounded);
        			OnTouchFloor ();
        		}
     	}
+	}
+
+	void ThrowRaycastSide()
+    {
+        //bool wallBuffer = false;
+
+    	for (int i = 0; i < raycastNumber; ++i)
+    	{
+            
+            raycastOrigin = new Vector2 ((transform.position.x - xOffset * -direction),
+    		 	transform.position.y - yOffset + (capsuleCollider.size.y / (raycastNumber-1)) * i);
+    		
+    		RaycastHit2D hit = Physics2D.Raycast(raycastOrigin, Vector2.right * direction, 15f);
+
+    		Color colo = Color.white;
+    		if (i == 0) {colo = Color.red;}
+    		else if (i == 1) {colo = Color.yellow;}
+    		else if (i == 2) {colo = Color.blue;}
+    		else if (i == 3) {colo = Color.green;}
+
+    		Debug.DrawRay(raycastOrigin, Vector2.right * direction, colo);
+
+           
+
+            if (Mathf.Abs(hit.point.x - raycastOrigin.x) < groundedMaximaleDistance)
+    		{
+    			if (i == 0) {sideRaycast0 = true;}
+    			else if (i == 1) {sideRaycast1 = true;}
+    			else if (i == 2) {sideRaycast2 = true;}
+    			else if (i == 3) {sideRaycast3 = true;}
+    	
+    			//wallBuffer = true; 		
+                WallSlide();
+
+            }
+            else {
+            	if (i == 0) {sideRaycast0 = false;}
+    			else if (i == 1) {sideRaycast1 = false;}
+    			else if (i == 2) {sideRaycast2 = false;}
+    			else if (i == 3) {sideRaycast3 = false;}
+            	isWallSliding = false;
+    			//wallBuffer = false;/*
+    			//animator.SetBool("Grounded", playerIsGrounded);
+
+    			//bufferAirControl = airControlMultiplier;
+    		}/*
+
+       		if (wallBuffer  && playerIsGrounded == false)
+       		{
+       			playerIsGrounded = true;
+       			animator.SetBool("Grounded", playerIsGrounded);
+       			OnTouchFloor ();
+       		}*/
+    	}
+	}
+	void WallSlide()
+	{
+		isWallSliding = false;
+
+		if (!playerIsGrounded)
+		{
+			isWallSliding = true;
+			if (rigidBody2D.velocity.y <= 0)
+			{
+				
+				rigidBody2D.velocity = new Vector2 (0, -wallSlideSpeed);
+			}
+		}
+	
 	}
 
 	void FetchComponents() {
