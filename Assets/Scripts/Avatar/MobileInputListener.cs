@@ -40,10 +40,10 @@ public class MobileInputListener : KeyboardInputListener
     }
 
     // Functions called from UI button
-    public void OnLeftbuttonPressed () { movementInput -= 1f; }
+    public void OnLeftButtonPressed () { movementInput -= 1f; }
     public void OnLeftButtonReleased() { movementInput += 1f; }
     public void OnRightButtonPressed() { movementInput += 1f; }
-    public void OnRightbuttonReleased() { movementInput -= 1f; }
+    public void OnRightButtonReleased() { movementInput -= 1f; }
 
     public void OnJumpButtonPressed()
     {
