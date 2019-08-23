@@ -33,7 +33,7 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 
 	public GridLayout gridLayout;
 
-	private bool isOnTyrolienne = false;
+	public bool isOnTyrolienne = false;
 	public TyrolienneSC Tyroliennesc;
 	public Vector2 endTyroliennePosition;
 	private Vector2 startTyroliennePosition;
