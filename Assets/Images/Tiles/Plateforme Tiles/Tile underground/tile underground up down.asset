@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: tile underground up down
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: f1d221e334d15ebbf828c58a3283237e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 318176e27a897a63bae5004e2a52951e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
