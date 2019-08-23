@@ -19,11 +19,11 @@ public class Ennemi : MonoBehaviour
 
     }
 
-    void OnTriggerStay2D(Collider2D collidedCollider)
+    void OnTriggerEnter2D(Collider2D collidedCollider)
     {
         if (collidedCollider.gameObject.tag == "Slash")
         {
-            Destroy(this);
+            Die();
         }
         else
         {
@@ -39,5 +39,10 @@ public class Ennemi : MonoBehaviour
             avatar.GetComponent<AvatarResources>().ResourceValueReset();
 
         print(AvatarResources.waterResource);
+    }
+
+    void Die()
+    {
+        Destroy(this);
     }
 }
