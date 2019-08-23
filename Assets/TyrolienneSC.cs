@@ -8,7 +8,9 @@ public class TyrolienneSC : MonoBehaviour
 	public GameObject tyrolienneEndPoint;
 	private Avatar2DCharacterCTRL avatarCharacterCTRL;
 
-	public bool isOnTyrolienne = true;
+	private bool isAvatarOnMe;
+
+	//public bool isOnTyrolienne = true;
 
     void Start()
     {
@@ -22,17 +24,23 @@ public class TyrolienneSC : MonoBehaviour
 
     void OnTriggerEnter2D (Collider2D collider)
     {
-
-    	//isOnTyrolienne = true;
-    	avatarCharacterCTRL.TyrolienneOn(true,new Vector2 (tyrolienneEndPoint.transform.position.x, tyrolienneEndPoint.transform.position.y));
-    	//avatarCharacterCTRL.TyrolienneMovement(tyrolienneEndPoint.transform.position);
+    	if (!avatarCharacterCTRL.isOnTyrolienne)
+    	{
+    		isAvatarOnMe = true;
+    		avatarCharacterCTRL.isOnTyrolienne = true;
+    		avatarCharacterCTRL.TyrolienneOn(true,new Vector2 (tyrolienneEndPoint.transform.position.x, tyrolienneEndPoint.transform.position.y));
+    	}
 
     }
 
     void OnTriggerExit2D (Collider2D collider)
     {
-
-    	avatarCharacterCTRL.TyrolienneOn(false, tyrolienneEndPoint.transform.position);
+    	if (isAvatarOnMe)
+    	{
+    		isAvatarOnMe = false;
+    		avatarCharacterCTRL.isOnTyrolienne = false;
+    		avatarCharacterCTRL.TyrolienneOn(false, tyrolienneEndPoint.transform.position);
+    	}
 
     }
 }
