@@ -73,7 +73,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   infinitWater: 0
-  waterResourceValueToGive: 10
+  waterResourceValueToGive: 15
   avatar: {fileID: 0}
 --- !u!50 &5850875001892318193
 Rigidbody2D:
