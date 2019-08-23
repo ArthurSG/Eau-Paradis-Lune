@@ -31,8 +31,8 @@ GameObject:
   - component: {fileID: 7781672204839265322}
   - component: {fileID: 7781672204839265326}
   - component: {fileID: 7781672204839265297}
-  - component: {fileID: 7781672204839265325}
   - component: {fileID: 7781672204839265327}
+  - component: {fileID: 1026860632}
   m_Layer: 0
   m_Name: Avatar
   m_TagString: Untagged
@@ -69,16 +69,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   raycastNumber: 4
-  boxCollider: {fileID: 7781672204839265325}
+  capsuleCollider: {fileID: 1026860632}
   rigidBody2D: {fileID: 7781672204839265327}
+  abilities: {fileID: 0}
   playerIsGrounded: 0
-  movementSpeed: 0
+  maxMovementSpeed: 10
   airControlMultiplier: 0.75
   pressedJump: 0
-  jumpVelocity: 10
-  fallMultiplier: 5
-  lowJumpMultiplier: 10
+  jumpVelocity: 9.9
+  fallMultiplier: 2
+  lowJumpMultiplier: 2
+  gridLayout: {fileID: 0}
+  Tyroliennesc: {fileID: 0}
+  endTyroliennePosition: {x: 0, y: 0}
   jumpParticles: {fileID: 0}
+  animator: {fileID: 8928412964741120523}
 --- !u!114 &7781672204839265326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,35 +109,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cfcc2c36c991994f86d5fc7abee7157, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slashGameObjectToInstantiate: {fileID: 0}
+  slashGameObjectToInstantiate: {fileID: 7265606870232688463, guid: e821e94c6418aca42892c13bc86cfcb6,
+    type: 3}
   waterJumpCost: 5
   waterSlashCost: 7
---- !u!61 &7781672204839265325
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7781672204839265323}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.43, y: 1.74}
-  m_EdgeRadius: 0
 --- !u!50 &7781672204839265327
 Rigidbody2D:
   serializedVersion: 4
@@ -154,6 +134,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!70 &1026860632
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7781672204839265323}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.13}
+  m_Size: {x: 0.36, y: 1.58}
+  m_Direction: 0
 --- !u!1 &7781672204876925496
 GameObject:
   m_ObjectHideFlags: 0

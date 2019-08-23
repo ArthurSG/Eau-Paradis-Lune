@@ -7,7 +7,7 @@ using UnityEditor;
 public class Avatar2DCharacterCTRL : MonoBehaviour
 {
 	public int raycastNumber = 4;
-	public BoxCollider2D boxCollider;
+	public CapsuleCollider2D capsuleCollider;
 	public Rigidbody2D rigidBody2D;
 	public AvatarAbilities abilities;
 
@@ -49,11 +49,10 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 
     void Start()
     {
-        yOffset = (boxCollider.size.y + 0.001f) / 2f;
-        xOffset = boxCollider.size.x / 2;
+        yOffset = (capsuleCollider.size.y + 0.001f) / 2f;
+        xOffset = capsuleCollider.size.x / 2;
 
-			FetchComponents();
-
+		FetchComponents();
     }
 
     void Update()
@@ -66,8 +65,6 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 
     void FixedUpdate()
     {
-    	/*if (playerIsGrounded)
-        	PlayerGroundedPositionSet();*/
         if (isOnTyrolienne)
         {
         	TyrolienneMovement(endTyroliennePosition);
@@ -85,10 +82,7 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
     public void TyrolienneMovement (Vector2 endPosition)
     {
     	rigidBody2D.velocity = Vector2.zero;
-    	//this.transform.position = Vector3.Lerp(this.transform.position, endPosition, 1f * Time.deltaTime);
     	rigidBody2D.velocity = (endPosition - startTyroliennePosition) * 1f;
-    	//this.transform.position = 
-
     }
 
 
@@ -119,13 +113,11 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
     {
     	if (!isOnTyrolienne)
     	{
-				float desiredSpeed = avatarDirection * maxMovementSpeed * bufferAirControl;
+			float desiredSpeed = avatarDirection * maxMovementSpeed * bufferAirControl;
     		rigidBody2D.velocity = new Vector2 (desiredSpeed, rigidBody2D.velocity.y);
 
-    		this.gameObject.transform.position += new Vector3 (avatarDirection * 0.1f,0,0);
-				if ((isFacingRight && avatarDirection < 0) || (!isFacingRight && avatarDirection > 0)) {
-					Flip();
-				}
+    		
+			if ((isFacingRight && avatarDirection < 0) || (!isFacingRight && avatarDirection > 0)) {Flip();}
     	}
     }
 
@@ -140,20 +132,6 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 
 
 
-
-
-
-    void PlayerGroundedPositionSet ()
-    {
-    	//rigidBody2D.velocity = new Vector2 (rigidBody2D.velocity.x, 0);
-        //RigidbodyConstraints2D = FreezeRotationY;
-        //rigidBody2D.constraints = RigidbodyConstraints2D.FreezePositionY;
-
-        //COLLIDER GROUND WIP
-        //this.transform.position = new Vector2 (this.transform.position.x, colliderGround.gameObject.transform.position.y + colliderGround.size.y/2 + yOffset - 0.001f);
-        //this.transform.position = new Vector2 (this.transform.position.x, cellPosition3.y + yOffset - 0.001f);
-    }
-
     void OnTouchFloor ()
     {
   		bufferAirControl = 1;
@@ -161,7 +139,6 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 
     void TileFinder (RaycastHit2D hit)
     {
-        //gridLayout = transform.parent.GetComponentInParent<GridLayout>();
         Vector3Int cellPosition = gridLayout.WorldToCell(new Vector3 (hit.point.x, hit.point.y, 0));
         cellPosition3 = gridLayout.CellToWorld(cellPosition);
     }
@@ -176,25 +153,18 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
     	for (int i = 0; i < raycastNumber; ++i)
     	{
             
-            raycastOrigin = new Vector2 (transform.position.x - xOffset + (boxCollider.size.x / (raycastNumber-1)) * i,
+            raycastOrigin = new Vector2 (transform.position.x - xOffset + (capsuleCollider.size.x / (raycastNumber-1)) * i,
     		 	transform.position.y - yOffset);
     		
     		RaycastHit2D hit = Physics2D.Raycast(raycastOrigin, -Vector2.up, 15f);
 
            
-    		Debug.DrawRay(raycastOrigin, -Vector2.up * 5f, Color.red);
-
-  
 
             if (Mathf.Abs(hit.point.y - raycastOrigin.y) < groundedMaximaleDistance)
     		{
-    			groundedBuffer = true;
-
-                //COLLIDER GROUND WIP
-    		
+    			groundedBuffer = true; 		
                 TileFinder(hit);
 
-                //colliderGround = (TilemapCollider2D)hit.collider;
             }
             else {
     			playerIsGrounded = false;
@@ -202,23 +172,6 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 
     			bufferAirControl = airControlMultiplier;
     		}
-
-
-
-    		/*
-  			if (hit.collider != null)
-  			{
-  				groundedBuffer = true;
-  				colliderGround = (BoxCollider2D)hit.collider;
-  				//OnTouchFloor();
-
-  			}
-  			else if (hit.collider == null)
-  			{
-  			
-  				playerIsGrounded = false;
-  			}
-       	}*/
 
        		if (groundedBuffer  && playerIsGrounded == false)
        		{
