@@ -2,22 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+// Le nom devrait être liée à la seul ressource que le scripte gère réellement : water
 public class AvatarResources : MonoBehaviour
 {
+	// Nous savons déjà dque l'eau est une ressource. "water" me semble suffisant.
 	public static float waterResource;
 	public float maxWaterResources;
-
-
-    void Start()
-    {
-        
-    }
-
-
-    void Update()
-    {
-
-    }
 
     public bool CanUseResources (float resourceNeededValue)
     {

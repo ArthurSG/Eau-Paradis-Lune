@@ -16,8 +16,8 @@ public class AvatarAbilities : MonoBehaviour
 
     void Start()
     {
-    	avatarResources = GetComponent<AvatarResources>();   
-    	avatarController = GetComponent<Avatar2DCharacterCTRL>(); 
+    	avatarResources = GetComponent<AvatarResources>();
+    	avatarController = GetComponent<Avatar2DCharacterCTRL>();
     	isAvatarGrounded = avatarController.playerIsGrounded;
     }
 

@@ -9,15 +9,16 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 	public int raycastNumber = 4;
 	public BoxCollider2D boxCollider;
 	public Rigidbody2D rigidBody2D;
+	public AvatarAbilities abilities;
 
 	private float yOffset;
 	private float xOffset;
 
 	public bool playerIsGrounded;
 	private BoxCollider2D colliderGround;
-    private Vector3 cellPosition3;
+	private Vector3 cellPosition3;
 
-	public float movementSpeed = 300f;
+	public float maxMovementSpeed = 300f;
 	public float airControlMultiplier = 0.75f;
 	private float bufferAirControl = 0;
 
@@ -30,21 +31,20 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 	private Vector2 raycastOrigin;
 	private double groundedMaximaleDistance = 0.02d;
 
-    public GridLayout gridLayout;
+	public GridLayout gridLayout;
 
-    private bool isOnTyrolienne = false;
-    public TyrolienneSC Tyroliennesc;
-    public Vector2 endTyroliennePosition;
-    private Vector2 startTyroliennePosition;
-
-
-    public ParticleSystem jumpParticles;
-
-    public Animator animator;
-    private float animationSpeedX;
+	private bool isOnTyrolienne = false;
+	public TyrolienneSC Tyroliennesc;
+	public Vector2 endTyroliennePosition;
+	private Vector2 startTyroliennePosition;
 
 
+	public ParticleSystem jumpParticles;
 
+	public Animator animator;
+	private float animationSpeedX;
+
+	private bool isFacingRight = true;
 
 
     void Start()
@@ -52,7 +52,7 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
         yOffset = (boxCollider.size.y + 0.001f) / 2f;
         xOffset = boxCollider.size.x / 2;
 
-        animator = GetComponentInChildren<Animator>();
+			FetchComponents();
 
     }
 
@@ -60,12 +60,8 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
     {
         ThrowRaycastDown();
         BetterJump ();
-
-        animationSpeedX = Mathf.Abs(rigidBody2D.velocity.x / 4);
-        animator.SetFloat("SpeedX", animationSpeedX);
+        animator.SetFloat("SpeedX", Mathf.Abs(rigidBody2D.velocity.x / maxMovementSpeed));
         animator.SetFloat("SpeedY", rigidBody2D.velocity.y);
-
-     
     }
 
     void FixedUpdate()
@@ -97,13 +93,12 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 
 
 
-    public void AvatarJump()
+    public void Jump()
     {
     	if (playerIsGrounded)
-    	{
-    
     		rigidBody2D.velocity += new Vector2 (rigidBody2D.velocity.x, jumpVelocity);
-    	}
+			else
+				abilities.WaterJump();
     }
 
 
@@ -120,19 +115,27 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 
 
 
-    public void SideMovement (int avatarDirection)
+    public void SideMovement (float avatarDirection)
     {
-    	/*
-    	if (!playerIsGrounded)
-    		bufferAirControl = airControlMultiplier; 
-    	if (playerIsGrounded)
-    		bufferAirControl = 1;*/
     	if (!isOnTyrolienne)
     	{
-    		rigidBody2D.velocity = new Vector2 (avatarDirection * movementSpeed * bufferAirControl, rigidBody2D.velocity.y);
+				float desiredSpeed = avatarDirection * maxMovementSpeed * bufferAirControl;
+    		rigidBody2D.velocity = new Vector2 (desiredSpeed, rigidBody2D.velocity.y);
+
     		this.gameObject.transform.position += new Vector3 (avatarDirection * 0.1f,0,0);
+				if ((isFacingRight && avatarDirection < 0) || (!isFacingRight && avatarDirection > 0)) {
+					Flip();
+				}
     	}
     }
+
+		void Flip() 
+		{
+			Vector3 avatarScale = transform.localScale;
+			avatarScale.x *= -1;
+			transform.localScale = avatarScale;
+			isFacingRight = !isFacingRight;
+		}
 
 
 
@@ -217,13 +220,17 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
   			}
        	}*/
 
-       		if (groundedBuffer == true && playerIsGrounded == false)
+       		if (groundedBuffer  && playerIsGrounded == false)
        		{
-       			print ("heyo");
        			playerIsGrounded = true;
        			animator.SetBool("Grounded", playerIsGrounded);
        			OnTouchFloor ();
        		}
     	}
+	}
+
+	void FetchComponents() {
+		animator = GetComponentInChildren<Animator>();
+		abilities = gameObject.GetComponent<AvatarAbilities>();
 	}
 }
