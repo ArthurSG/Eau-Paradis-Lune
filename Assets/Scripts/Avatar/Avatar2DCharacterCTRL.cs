@@ -59,6 +59,8 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 	public bool sideRaycast2 = false;
 	public bool sideRaycast3 = false;
 
+    public GameObject CameraFocusPoint;
+
 
     void Start()
     {
@@ -88,9 +90,12 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 
 
     }
+
+
     public void TyrolienneOn (bool boolean, Vector2 endPosition)
     {
     	isOnTyrolienne = boolean;
+        GetComponentInChildren<MainCameraIA>().setVitesse(20f);
     	endTyroliennePosition = endPosition;
     	startTyroliennePosition = this.transform.position;
     }
@@ -142,19 +147,25 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
     		if (avatarDirection != 0) {AutoSideJump();} 
     		
 			if ((isFacingRight && avatarDirection < 0) || (!isFacingRight && avatarDirection > 0)) {Flip();}
-    	}
+
+            if (isFacingRight) {
+                CameraFocusPoint.transform.position = transform.position + Vector3.right * MainCameraIA.COORDONNEE_MAX_X;
+            }
+            else {
+                CameraFocusPoint.transform.position = transform.position + Vector3.left * MainCameraIA.COORDONNEE_MAX_X;
+            }
+        }
     }
 
-		void Flip() 
+	void Flip() 
 		{
-			foreach (GameObject sprite in spritesToFlip) {
-				Vector3 newScale = sprite.gameObject.transform.localScale;
-				newScale.x *= -1;
-				sprite.gameObject.transform.localScale = newScale;
-			}
-				isFacingRight = !isFacingRight;
-			
+		foreach (GameObject sprite in spritesToFlip) {
+			Vector3 newScale = sprite.gameObject.transform.localScale;
+			newScale.x *= -1;
+			sprite.gameObject.transform.localScale = newScale;
 		}
+			isFacingRight = !isFacingRight;	
+	}
 
 	void GetRoundedDirection (float avatarDirection)
 	{
@@ -187,8 +198,6 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
     		sideRaycast1 = false;
     		sideRaycast3 = false;
     		sideRaycast2 = false;
-
-	
 
     	}
     }
@@ -231,6 +240,7 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
        		{
        		
        			playerIsGrounded = true;
+                GetComponentInChildren<MainCameraIA>().resetVitesse();
 						foreach (Animator animator in spritesToAnimate)
       	 			animator.SetBool("Grounded", playerIsGrounded);
        			OnTouchFloor ();
@@ -291,7 +301,8 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
        		}*/
     	}
 	}
-	void WallSlide()
+
+    void WallSlide()
 	{
 		isWallSliding = false;
 

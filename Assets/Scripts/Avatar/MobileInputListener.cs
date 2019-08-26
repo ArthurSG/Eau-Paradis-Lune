@@ -13,34 +13,36 @@ public class MobileInputListener : KeyboardInputListener
         this.avatar.SideMovement(movementInput);
     }
 
-    protected override void TryAttacking() {
+    protected override void TryAttacking()
+    {
         Vector3 touchPosition;
-    	if (Input.touchCount > 0)
+        if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
             touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
-            touchPosition.z = 0f;         
-           
+            touchPosition.z = 0f;
+
             if (touch.position.y > 500)
             {
-	            if (touch.phase == TouchPhase.Began)
-	            {
+                if (touch.phase == TouchPhase.Began)
+                {
 
-            	avatar.abilities.SlashInstantiate(touchPosition);
-    			foreach (Animator animator in avatar.spritesToAnimate)
-            	    animator.SetBool("Slash", true);
-            }
-            if (touch.phase == TouchPhase.Moved)
-            {
-            
-            	avatar.abilities.SlashMove(touchPosition);
-            }
-            if (touch.phase == TouchPhase.Ended)
-            {
-        
-            	avatar.abilities.SlashDestroy();
-    			foreach (Animator animator in avatar.spritesToAnimate)
-            	    animator.SetBool("Slash", false);
+                    avatar.abilities.SlashInstantiate(touchPosition);
+                    foreach (Animator animator in avatar.spritesToAnimate)
+                        animator.SetBool("Slash", true);
+                }
+                if (touch.phase == TouchPhase.Moved)
+                {
+
+                    avatar.abilities.SlashMove(touchPosition);
+                }
+                if (touch.phase == TouchPhase.Ended)
+                {
+
+                    avatar.abilities.SlashDestroy();
+                    foreach (Animator animator in avatar.spritesToAnimate)
+                        animator.SetBool("Slash", false);
+                }
             }
         }
     }
