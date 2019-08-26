@@ -23,7 +23,8 @@ public class MobileInputListener : KeyboardInputListener
             {
 
             	avatar.abilities.SlashInstantiate(touchPosition);
-            	avatar.animator.SetBool("Slash", true);
+    			foreach (Animator animator in avatar.spritesToAnimate)
+            	    animator.SetBool("Slash", true);
             }
             if (touch.phase == TouchPhase.Moved)
             {
@@ -34,7 +35,8 @@ public class MobileInputListener : KeyboardInputListener
             {
         
             	avatar.abilities.SlashDestroy();
-            	avatar.animator.SetBool("Slash", false);
+    			foreach (Animator animator in avatar.spritesToAnimate)
+            	    animator.SetBool("Slash", false);
             }
         }
     }
