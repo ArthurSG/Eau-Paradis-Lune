@@ -8,10 +8,11 @@ public class MainCameraIA : MonoBehaviour
     bool characterIsFalling;
     float fallingTime;
     public float vitesseCamera;
+    private float vitesseDeBase;
 
     public GameObject focusPoint;
 
-    public const float COORDONNEE_MAX_X = 2;
+    public const float COORDONNEE_MAX_X = 1.5f;
     public const float COORDONNEE_MAX_Y = 2f;
 
 
@@ -19,7 +20,7 @@ public class MainCameraIA : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        vitesseDeBase = vitesseCamera;
     }
 
     // Update is called once per frame
@@ -43,5 +44,15 @@ public class MainCameraIA : MonoBehaviour
     Vector2 GetAvatarPosition()
     {
         return new Vector2(transform.parent.position.x, transform.parent.position.y);
+    }
+
+    public void setVitesse(float v)
+    {
+        vitesseCamera = v;
+    }
+
+    public void resetVitesse()
+    {
+        vitesseCamera = vitesseDeBase;
     }
 }
