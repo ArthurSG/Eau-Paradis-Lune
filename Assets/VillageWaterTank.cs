@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class VillageWaterTank : MonoBehaviour
 {
@@ -10,7 +11,9 @@ public class VillageWaterTank : MonoBehaviour
 	public float maxWaterResource;
 
 	public GameObject avatar;
+	public GameObject winPanel;
 	private AvatarResources avatarResources;
+	public Text ResourceText;
 
 
     void Start()
@@ -22,7 +25,12 @@ public class VillageWaterTank : MonoBehaviour
 
     void Update()
     {
+    		TextUpdate();
+    }
 
+    void TextUpdate()
+    {
+    	ResourceText.text = waterResource + " / " + maxWaterResource;
     }
 
     void OnTriggerStay2D (Collider2D collidedCollider)
@@ -40,6 +48,7 @@ public class VillageWaterTank : MonoBehaviour
     	if (waterResource >= maxWaterResource)
     	{
     		print ("you won !");
+    		winPanel.SetActive(true);
     	}
     }
 
