@@ -60,7 +60,8 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 	public bool sideRaycast3 = false;
 
     public GameObject CameraFocusPoint;
-
+    public float CameraX, CameraY;
+    Vector3 lastTouchedGround;
 
     void Start()
     {
@@ -68,6 +69,7 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
         xOffset = (capsuleCollider.size.x + 0.02f) / 2f;
 
 		FetchComponents();
+        CameraY = 1;
     }
 
     void Update()
@@ -79,6 +81,8 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 				animator.SetFloat("SpeedX", Mathf.Abs(rigidBody2D.velocity.x / maxMovementSpeed));
 				animator.SetFloat("SpeedY", rigidBody2D.velocity.y);
 			}
+
+        SetCameraFocus();
     }
 
     void FixedUpdate()
@@ -91,6 +95,10 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 
     }
 
+    void SetCameraFocus()
+    {
+        CameraFocusPoint.transform.position = transform.position + new Vector3(CameraX, CameraY,0);
+    }
 
     public void TyrolienneOn (bool boolean, Vector2 endPosition)
     {
@@ -149,10 +157,10 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 			if ((isFacingRight && avatarDirection < 0) || (!isFacingRight && avatarDirection > 0)) {Flip();}
 
             if (isFacingRight) {
-                CameraFocusPoint.transform.position = transform.position + Vector3.right * MainCameraIA.COORDONNEE_MAX_X;
+                CameraX = MainCameraIA.COORDONNEE_MAX_X;
             }
             else {
-                CameraFocusPoint.transform.position = transform.position + Vector3.left * MainCameraIA.COORDONNEE_MAX_X;
+                CameraX = -MainCameraIA.COORDONNEE_MAX_X;
             }
         }
     }
@@ -181,6 +189,7 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
     {
   		bufferAirControl = 1;
   		jumpParticles.Play();
+        GetComponentInChildren<MainCameraIA>().resetVitesse();
     }
 
     void TileFinder (RaycastHit2D hit)
@@ -227,7 +236,6 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 
             }
             else {
-            
     			playerIsGrounded = false;
 					foreach (Animator animator in spritesToAnimate)
     				animator.SetBool("Grounded", playerIsGrounded);
@@ -238,9 +246,7 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 
        		if (groundedBuffer  && playerIsGrounded == false)
        		{
-       		
        			playerIsGrounded = true;
-                GetComponentInChildren<MainCameraIA>().resetVitesse();
 						foreach (Animator animator in spritesToAnimate)
       	 			animator.SetBool("Grounded", playerIsGrounded);
        			OnTouchFloor ();

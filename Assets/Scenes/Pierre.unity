@@ -170,7 +170,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 29047303}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Enemis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -689,6 +689,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Ennemi (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3485520104643439064, guid: b6a5cae49c8d4d74a9feadb41cc9e583,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3485520104643439068, guid: b6a5cae49c8d4d74a9feadb41cc9e583,
         type: 3}
@@ -29656,7 +29661,7 @@ PrefabInstance:
     - target: {fileID: 3537694503364247373, guid: caa6cdb169861fcb6bf646154d506b89,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5697075726334773957, guid: caa6cdb169861fcb6bf646154d506b89,
         type: 3}
@@ -29666,7 +29671,7 @@ PrefabInstance:
     - target: {fileID: 5697075726334773957, guid: caa6cdb169861fcb6bf646154d506b89,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6877252368992829204, guid: caa6cdb169861fcb6bf646154d506b89,
         type: 3}
@@ -29736,6 +29741,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gour (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 5850875001892318205, guid: b2b52413d8ba09e41b1b578ab3b05b18,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5850875001892318194, guid: b2b52413d8ba09e41b1b578ab3b05b18,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -29796,6 +29806,11 @@ PrefabInstance:
       propertyPath: avatar
       value: 
       objectReference: {fileID: 1026860625}
+    - target: {fileID: 5850875002688416114, guid: b2b52413d8ba09e41b1b578ab3b05b18,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2b52413d8ba09e41b1b578ab3b05b18, type: 3}
 --- !u!4 &387799348 stripped
@@ -29821,6 +29836,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Ennemi (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3485520104643439064, guid: b6a5cae49c8d4d74a9feadb41cc9e583,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3485520104643439068, guid: b6a5cae49c8d4d74a9feadb41cc9e583,
         type: 3}
@@ -30013,6 +30033,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ennemi (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 3485520104643439064, guid: b6a5cae49c8d4d74a9feadb41cc9e583,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3485520104643439068, guid: b6a5cae49c8d4d74a9feadb41cc9e583,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -30087,6 +30112,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lac
       objectReference: {fileID: 0}
+    - target: {fileID: 8455318877041913538, guid: 1d5ff6bf78c457d468ded9ebe61efa31,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8455318877041913550, guid: 1d5ff6bf78c457d468ded9ebe61efa31,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -30152,6 +30182,11 @@ PrefabInstance:
       propertyPath: avatar
       value: 
       objectReference: {fileID: 1026860625}
+    - target: {fileID: 8455318876311451253, guid: 1d5ff6bf78c457d468ded9ebe61efa31,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8455318876311451255, guid: 1d5ff6bf78c457d468ded9ebe61efa31,
         type: 3}
       propertyPath: m_Enabled
@@ -30170,6 +30205,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Gour
+      objectReference: {fileID: 0}
+    - target: {fileID: 5850875001892318205, guid: b2b52413d8ba09e41b1b578ab3b05b18,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5850875001892318194, guid: b2b52413d8ba09e41b1b578ab3b05b18,
         type: 3}
@@ -30235,6 +30275,11 @@ PrefabInstance:
         type: 3}
       propertyPath: waterResourceValueToGive
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5850875002688416114, guid: b2b52413d8ba09e41b1b578ab3b05b18,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2b52413d8ba09e41b1b578ab3b05b18, type: 3}
@@ -127447,6 +127492,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ennemi (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3485520104643439064, guid: b6a5cae49c8d4d74a9feadb41cc9e583,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3485520104643439068, guid: b6a5cae49c8d4d74a9feadb41cc9e583,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -127619,7 +127669,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 986769237}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Gours
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127755,6 +127805,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gour (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5850875001892318205, guid: b2b52413d8ba09e41b1b578ab3b05b18,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5850875001892318194, guid: b2b52413d8ba09e41b1b578ab3b05b18,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -127815,6 +127870,11 @@ PrefabInstance:
       propertyPath: avatar
       value: 
       objectReference: {fileID: 1026860625}
+    - target: {fileID: 5850875002688416114, guid: b2b52413d8ba09e41b1b578ab3b05b18,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2b52413d8ba09e41b1b578ab3b05b18, type: 3}
 --- !u!4 &1098132752 stripped
@@ -127840,6 +127900,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Gour (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5850875001892318205, guid: b2b52413d8ba09e41b1b578ab3b05b18,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5850875001892318194, guid: b2b52413d8ba09e41b1b578ab3b05b18,
         type: 3}
@@ -127901,6 +127966,11 @@ PrefabInstance:
       propertyPath: avatar
       value: 
       objectReference: {fileID: 1026860625}
+    - target: {fileID: 5850875002688416114, guid: b2b52413d8ba09e41b1b578ab3b05b18,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2b52413d8ba09e41b1b578ab3b05b18, type: 3}
 --- !u!1001 &1157661965
@@ -128588,6 +128658,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ennemi (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 3485520104643439064, guid: b6a5cae49c8d4d74a9feadb41cc9e583,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3485520104643439068, guid: b6a5cae49c8d4d74a9feadb41cc9e583,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -128662,6 +128737,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gour (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5850875001892318205, guid: b2b52413d8ba09e41b1b578ab3b05b18,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5850875001892318194, guid: b2b52413d8ba09e41b1b578ab3b05b18,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -128726,6 +128806,11 @@ PrefabInstance:
         type: 3}
       propertyPath: waterResourceValueToGive
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5850875002688416114, guid: b2b52413d8ba09e41b1b578ab3b05b18,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2b52413d8ba09e41b1b578ab3b05b18, type: 3}
@@ -128871,6 +128956,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ennemi (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3485520104643439064, guid: b6a5cae49c8d4d74a9feadb41cc9e583,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3485520104643439068, guid: b6a5cae49c8d4d74a9feadb41cc9e583,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -128944,6 +129034,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Ennemi (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3485520104643439064, guid: b6a5cae49c8d4d74a9feadb41cc9e583,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3485520104643439068, guid: b6a5cae49c8d4d74a9feadb41cc9e583,
         type: 3}
@@ -129024,6 +129119,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Ennemi
+      objectReference: {fileID: 0}
+    - target: {fileID: 3485520104643439064, guid: b6a5cae49c8d4d74a9feadb41cc9e583,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3485520104643439068, guid: b6a5cae49c8d4d74a9feadb41cc9e583,
         type: 3}
