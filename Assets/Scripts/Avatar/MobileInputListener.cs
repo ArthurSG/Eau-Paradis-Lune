@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MobileInputListener : KeyboardInputListener
 {
 
     private float movementInput = 0f;
+    public Text debugText;
     
     protected override void TryMoving() {
         this.avatar.SideMovement(movementInput);
@@ -17,25 +19,29 @@ public class MobileInputListener : KeyboardInputListener
         {
             Touch touch = Input.GetTouch(0);
             touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
-            touchPosition.z = 0f;
+            touchPosition.z = 0f;         
+           
+            if (touch.position.y > 500)
+            {
+	            if (touch.phase == TouchPhase.Began)
+	            {
 
-            if (touch.phase == TouchPhase.Began)
-            {
+	            	avatar.abilities.SlashInstantiate(touchPosition);
+	            	avatar.animator.SetBool("Slash", true);
+	            }
+	            if (touch.phase == TouchPhase.Moved)
+	            {
+		            avatar.abilities.SlashMove(touchPosition);
+		        }
+		    }
 
-            	avatar.abilities.SlashInstantiate(touchPosition);
-            	avatar.animator.SetBool("Slash", true);
-            }
-            if (touch.phase == TouchPhase.Moved)
-            {
-            
-            	avatar.abilities.SlashMove(touchPosition);
-            }
-            if (touch.phase == TouchPhase.Ended)
-            {
-        
-            	avatar.abilities.SlashDestroy();
-            	avatar.animator.SetBool("Slash", false);
-            }
+		    if (touch.phase == TouchPhase.Ended ||touch.position.y <= 500)
+		    {
+		        
+		        avatar.abilities.SlashDestroy();
+		        avatar.animator.SetBool("Slash", false);
+	        }
+	       
         }
     }
 
