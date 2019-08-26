@@ -10,6 +10,8 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 	public CapsuleCollider2D capsuleCollider;
 	public Rigidbody2D rigidBody2D;
 	public AvatarAbilities abilities;
+	public GameObject[] spritesToFlip;
+	public Animator[] spritesToAnimate;
 
 	private float yOffset;
 	private float xOffset;
@@ -33,6 +35,7 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 
 	public GridLayout gridLayout;
 
+	[HideInInspector]
 	public bool isOnTyrolienne = false;
 	public TyrolienneSC Tyroliennesc;
 	public Vector2 endTyroliennePosition;
@@ -41,7 +44,6 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 
 	public ParticleSystem jumpParticles;
 
-	public Animator animator;
 	private float animationSpeedX;
 
 	private bool isFacingRight = true;
@@ -68,13 +70,13 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 
     void Update()
     {
-    	
-
-        ThrowRaycastDown();
-        BetterJump ();
-        ThrowRaycastSide();
-        animator.SetFloat("SpeedX", Mathf.Abs(rigidBody2D.velocity.x / maxMovementSpeed));
-        animator.SetFloat("SpeedY", rigidBody2D.velocity.y);
+			ThrowRaycastDown();
+			BetterJump ();
+			ThrowRaycastSide();
+			foreach (Animator animator in spritesToAnimate){
+				animator.SetFloat("SpeedX", Mathf.Abs(rigidBody2D.velocity.x / maxMovementSpeed));
+				animator.SetFloat("SpeedY", rigidBody2D.velocity.y);
+			}
     }
 
     void FixedUpdate()
@@ -145,10 +147,14 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 
 		void Flip() 
 		{
-			Vector3 avatarScale = transform.localScale;
-			avatarScale.x *= -1;
-			transform.localScale = avatarScale;
-			isFacingRight = !isFacingRight;
+			foreach (GameObject sprite in spritesToFlip) {
+				print(sprite);
+				Vector3 newScale = sprite.gameObject.transform.localScale;
+				newScale.x *= -1;
+				sprite.gameObject.transform.localScale = newScale;
+			}
+				isFacingRight = !isFacingRight;
+			
 		}
 
 	void GetRoundedDirection (float avatarDirection)
@@ -215,7 +221,8 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
             else {
             
     			playerIsGrounded = false;
-    			animator.SetBool("Grounded", playerIsGrounded);
+					foreach (Animator animator in spritesToAnimate)
+    				animator.SetBool("Grounded", playerIsGrounded);
 
     			bufferAirControl = airControlMultiplier;
 
@@ -225,7 +232,8 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
        		{
        		
        			playerIsGrounded = true;
-       			animator.SetBool("Grounded", playerIsGrounded);
+						foreach (Animator animator in spritesToAnimate)
+      	 			animator.SetBool("Grounded", playerIsGrounded);
        			OnTouchFloor ();
        		}
     	}
@@ -301,7 +309,6 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 	}
 
 	void FetchComponents() {
-		animator = GetComponentInChildren<Animator>();
 		abilities = gameObject.GetComponent<AvatarAbilities>();
 	}
 }
