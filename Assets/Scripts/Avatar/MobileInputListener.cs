@@ -7,8 +7,7 @@ public class MobileInputListener : KeyboardInputListener
 {
 
     private float movementInput = 0f;
-    public Text debugText;
-    
+        
     protected override void TryMoving() {
         this.avatar.SideMovement(movementInput);
     }
