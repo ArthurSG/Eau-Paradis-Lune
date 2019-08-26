@@ -76,13 +76,15 @@ MonoBehaviour:
   maxMovementSpeed: 10
   airControlMultiplier: 0.75
   pressedJump: 0
-  jumpVelocity: 9.9
+  jumpVelocity: 9.5
   fallMultiplier: 4
   lowJumpMultiplier: 4
   gridLayout: {fileID: 0}
+  isOnTyrolienne: 0
   Tyroliennesc: {fileID: 0}
   endTyroliennePosition: {x: 0, y: 0}
-  jumpParticles: {fileID: 0}
+  jumpParticles: {fileID: 7434409100986487028, guid: 6a3d13f76bf66174290e80a3f08bf584,
+    type: 3}
   animator: {fileID: 8928412964741120523}
   wallSlideSpeed: 3
   autoJumpVelocity: 15
@@ -102,7 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bd7cd7c5855e2942a59653594c91cc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxWaterResources: 100
+  maxWaterResources: 40
 --- !u!114 &7781672204839265297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,7 +217,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
