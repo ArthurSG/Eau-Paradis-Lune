@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 // Le nom devrait être liée à la seul ressource que le scripte gère réellement : water
@@ -9,6 +10,11 @@ public class AvatarResources : MonoBehaviour
 	// Nous savons déjà dque l'eau est une ressource. "water" me semble suffisant.
 	public static float waterResource;
 	public float maxWaterResources;
+	public Text waterUIText;
+
+	void Update() {
+		waterUIText.text = Mathf.RoundToInt(waterResource).ToString();
+	}
 
     public bool CanUseResources (float resourceNeededValue)
     {
