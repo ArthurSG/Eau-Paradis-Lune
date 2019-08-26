@@ -148,7 +148,6 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
 		void Flip() 
 		{
 			foreach (GameObject sprite in spritesToFlip) {
-				print(sprite);
 				Vector3 newScale = sprite.gameObject.transform.localScale;
 				newScale.x *= -1;
 				sprite.gameObject.transform.localScale = newScale;
