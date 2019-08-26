@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MobileInputListener : KeyboardInputListener
 {
 
     private float movementInput = 0f;
+    public Text debugText;
     
     protected override void TryMoving() {
         this.avatar.SideMovement(movementInput);
@@ -17,10 +19,12 @@ public class MobileInputListener : KeyboardInputListener
         {
             Touch touch = Input.GetTouch(0);
             touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
-            touchPosition.z = 0f;
-
-            if (touch.phase == TouchPhase.Began)
+            touchPosition.z = 0f;         
+           
+            if (touch.position.y > 500)
             {
+	            if (touch.phase == TouchPhase.Began)
+	            {
 
             	avatar.abilities.SlashInstantiate(touchPosition);
     			foreach (Animator animator in avatar.spritesToAnimate)
