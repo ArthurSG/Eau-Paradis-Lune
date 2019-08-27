@@ -189,7 +189,7 @@ public class Avatar2DCharacterCTRL : MonoBehaviour
     {
   		bufferAirControl = 1;
   		jumpParticles.Play();
-        GetComponentInChildren<MainCameraIA>().resetVitesse();
+        // GetComponentInChildren<MainCameraIA>().resetVitesse();
     }
 
     void TileFinder (RaycastHit2D hit)

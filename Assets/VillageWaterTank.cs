@@ -23,15 +23,15 @@ public class VillageWaterTank : MonoBehaviour
     }
 
 
-    void Update()
-    {
-    		TextUpdate();
-    }
+    // void Update()
+    // {
+    // 		TextUpdate();
+    // }
 
-    void TextUpdate()
-    {
-    	ResourceText.text = waterResource + " / " + maxWaterResource;
-    }
+    // void TextUpdate()
+    // {
+    // 	ResourceText.text = waterResource + " / " + maxWaterResource;
+    // }
 
     void OnTriggerStay2D (Collider2D collidedCollider)
     {
